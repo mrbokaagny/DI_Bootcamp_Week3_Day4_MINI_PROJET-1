@@ -5,8 +5,14 @@ let tabColors = [
     "#808080", "#000000", "#ffffff"
 ];
 
-let casechecked = 1357 
+let casechecked = 1239
 let currentColor = 'white'
+
+let sourisEnfonce = false;
+
+document.body.onmousedown = function() { sourisEnfonce = true ; } 
+document.body.onmouseup = function() { sourisEnfonce = false ; }
+
 
 // recuperation du button
 let boutton = document.getElementsByTagName('button')[0]
@@ -17,7 +23,7 @@ let cardOfCheckedItem = document.getElementsByClassName('right_part')[0]
 for (const key in tabColors) {
    let colorItem = document.createElement('div')
    colorItem.classList.add('color_item')
-   colorItem.setAttribute('style' , `background-color:${tabColors[key]} ; width : 85px ; height:85px ; border-radius:.5px`)
+   colorItem.setAttribute('style' , `background-color:${tabColors[key]} ; width : 80px ; height:80px ; border-radius:.5px`)
    cardOfColorsItem.appendChild(colorItem)
 }
 
@@ -44,10 +50,25 @@ allCaseChecked.forEach((el)=>{
     el.addEventListener('click' , function(event){
         event.target.style.backgroundColor = currentColor
     })
+
+
+
+
+    el.addEventListener("mousedown", function(event){
+        event.target.style.backgroundColor = currentColor;
+    });
+
+    // au survol de la souris
+    el.addEventListener("mouseover", function(event){
+        if (sourisEnfonce && currentColor != null) event.target.style.backgroundColor = currentColor;
+    });
 })
 
 boutton.onclick = () => {
     allCaseChecked.forEach((el)=>{
         el.style.backgroundColor = 'white'
     })
+    currentColor = 'white'
 }
+
+
